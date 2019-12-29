@@ -98,6 +98,26 @@ app.get('/api/getproducts/price/:id',(req, res) => {
   });
 });
 
+//GET FULL PRODUCT info
+app.get('/api/getproductsfullinfo',(req, res) => {
+  let sql = "SELECT * FROM XXIBM_PRODUCT_SKU sku LEFT OUTER JOIN XXIBM_PRODUCT_CATALOG cat on sku.CATALOGUE_CATEGORY = cat.CATALOGUE_CATEGORY LEFT OUTER JOIN XXIBM_PRODUCT_STYLE style on sku.ITEM_NUMBER = style.ITEM_NUMBER LEFT OUTER JOIN XXIBM_PRODUCT_PRICING pricing on sku.ITEM_NUMBER = pricing.ITEM_NUMBER";
+  console.log(sql);
+    let query = mysqlClient.query(sql, (err, results) => {
+      if(err) throw err;
+      res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    });
+  });
+
+
+//GET FULL PRODUCT info using PRODUCT_ID
+app.get('/api/getproductfullinfo/id/:id',(req, res) => {
+  let sql = "SELECT * FROM XXIBM_PRODUCT_SKU WHERE ITEM_NUMBER="+req.params.id;
+  console.log(sql);
+  let query = mysqlClient.query(sql, (err, results) => {
+    if(err) throw err;
+    res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+  });
+});
 // set port
 app.listen(port, ip);
 
