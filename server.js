@@ -110,7 +110,7 @@ app.get('/api/getproductsfullinfo',(req, res) => {
 
 
 //GET FULL PRODUCT info using PRODUCT_ID
-app.get('/api/getproductfullinfo/id/:id',(req, res) => {
+app.get('/api/getproductfullinfo1/id/:id',(req, res) => {
   let sql = "SELECT * FROM XXIBM_PRODUCT_SKU WHERE ITEM_NUMBER="+req.params.id;
   console.log(sql);
   let query = mysqlClient.query(sql, (err, results) => {
